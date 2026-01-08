@@ -15,7 +15,7 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
   // QR content (you can expand this for ZATCA compliance later)
   const qrValue = `
 فاتورة رقم: ${invoiceNumber}
-التاجر: ${invoiceData.merchantName || 'اسم التاجر'}
+المتجر: ${invoiceData.merchantName || 'اسم المتجر'}
 التاريخ: ${dateStr} ${timeStr}
 المجموع قبل الضريبة: ${subtotal.toFixed(2)} ريال
 ضريبة القيمة المضافة (15%): ${vat.toFixed(2)} ريال
@@ -37,7 +37,7 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
       <div className="text-center mb-3">
         <h4 className="fw-bold mb-1">فاتورة مبيعات</h4>
         <p className="mb-1 fw-bold">#{invoiceNumber} رقم الفاتورة</p>
-        <p className="mb-1">اسم التاجر: {invoiceData.merchantName || 'اسم التاجر'}</p>
+        <p className="mb-1">اسم المتجر: {invoiceData.merchantName || 'اسم المتجر'}</p>
         <p className="mb-1 small">
           التاريخ: {dateStr}  
           <br />
@@ -103,7 +103,7 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
       </div>
 
       {/* Print styles */}
-      <style jsx>{`
+      <style>{`
         @media print {
           .d-print-none { display: none !important; }
           body { margin: 0; padding: 8mm; font-size: 11pt; }

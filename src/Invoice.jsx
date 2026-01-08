@@ -4,11 +4,15 @@ import InvoicePreview from './InvoicePreview.jsx';
 import toast from 'react-hot-toast';
 
 const Invoice = () => {
-  const [items, setItems] = useState([]);           // available inventory
-  const [selectedItems, setSelectedItems] = useState([]); // what user picked
+  const [items, setItems] = useState([]);                    // available inventory
+  const [selectedItems, setSelectedItems] = useState([]);    // current selection (resets after invoice)
+  const [previewItems, setPreviewItems] = useState([]);      // ← NEW: saved copy for preview
   const [invoiceData, setInvoiceData] = useState({
     merchantName: '',
     invoiceNumber: '',
+    date: '',
+    total: 0,
+    vat: 0,
   });
   const [showPreview, setShowPreview] = useState(false);
 
@@ -18,11 +22,9 @@ const Invoice = () => {
     setItems(storedItems);
   }, []);
 
-  // When user changes quantity input
   const handleSelect = (item, qty) => {
     const qtyNum = parseInt(qty) || 0;
 
-    // Optional: prevent entering more than available
     if (qtyNum > item.quantity) {
       toast.error(`الكمية المتاحة لـ "${item.name}" هي ${item.quantity} فقط`);
       return;
@@ -52,7 +54,7 @@ const Invoice = () => {
       return;
     }
 
-    // Step 1: Check if any item would go negative
+    // Validation: no negative stock
     const currentInventory = JSON.parse(localStorage.getItem('inventory')) || [];
     const invalidItem = selectedItems.find(sel => {
       const stockItem = currentInventory.find(i => i.id === sel.id);
@@ -64,7 +66,6 @@ const Invoice = () => {
       return;
     }
 
-    // Step 2: Proceed to create invoice
     const now = new Date();
     const invId = 'INV-' + now.toISOString().replace(/[-:T.]/g, '').slice(0, 14);
 
@@ -104,13 +105,23 @@ const Invoice = () => {
     });
     localStorage.setItem('inventory', JSON.stringify(updatedInventory));
 
-    // Step 3: Immediately update the table on this page
+    // Update visible table immediately
     setItems(updatedInventory);
 
-    // Step 4: Reset selections (clear all quantity inputs)
-    setSelectedItems([]);
+    // IMPORTANT: Save a copy of selected items for preview BEFORE clearing
+    setPreviewItems([...selectedItems]);   // ← copy the array
 
-    // Step 5: Show preview
+    // Reset form for next invoice
+    setSelectedItems([]);
+    setInvoiceData({
+      merchantName: invoiceData.merchantName, // keep merchant name if you want
+      invoiceNumber: '',
+      date: '',
+      total: 0,
+      vat: 0,
+    });
+
+    // Prepare preview data
     setInvoiceData(prev => ({
       ...prev,
       invoiceNumber: invId,
@@ -118,9 +129,9 @@ const Invoice = () => {
       total,
       vat
     }));
+
     setShowPreview(true);
 
-    // Success feedback
     toast.success('تم إنشاء الفاتورة وتخفيض المخزون بنجاح!');
   };
 
@@ -133,10 +144,10 @@ const Invoice = () => {
       </Card.Header>
       <Card.Body>
         <Form.Group className="mb-4">
-          <Form.Label>اسم التاجر</Form.Label>
+          <Form.Label>اسم المتجر</Form.Label>
           <Form.Control
             type="text"
-            placeholder="أدخل اسم التاجر (اختياري)"
+            placeholder="أدخل اسم المتجر (اختياري)"
             value={invoiceData.merchantName}
             onChange={e => setInvoiceData({ ...invoiceData, merchantName: e.target.value })}
           />
@@ -163,9 +174,7 @@ const Invoice = () => {
                     type="number"
                     min="0"
                     max={item.quantity}
-                    value={
-                      selectedItems.find(s => s.id === item.id)?.qty || ''
-                    }
+                    value={selectedItems.find(s => s.id === item.id)?.qty || ''}
                     onChange={e => handleSelect(item, e.target.value)}
                     style={{ width: '100px' }}
                   />
@@ -196,12 +205,12 @@ const Invoice = () => {
             <div className="bg-white rounded p-4" style={{ maxWidth: '95%', maxHeight: '95vh', overflow: 'auto' }}>
               <InvoicePreview
                 invoiceData={invoiceData}
-                selectedItems={selectedItems}  // pass the original selected items for preview only
+                selectedItems={previewItems}  // ← Use the saved copy!
                 onClose={() => {
                   setShowPreview(false);
-                  // Optional: if you want to reload again after closing preview
-                  // const fresh = JSON.parse(localStorage.getItem('inventory')) || [];
-                  // setItems(fresh);
+                  // Optional: reload inventory if needed
+                  const fresh = JSON.parse(localStorage.getItem('inventory')) || [];
+                  setItems(fresh);
                 }}
               />
             </div>
