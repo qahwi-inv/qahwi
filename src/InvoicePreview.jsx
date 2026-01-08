@@ -40,7 +40,7 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
         aria-label="إغلاق"
         style={{
             position: 'absolute',
-            fontSize: '20px',
+            fontSize: '25px',
             top: '10px',
             right: '10px', // RTL: left = visually right
             border: '3px solid #dc3545',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import Inventory from './Inventory.jsx';
 import Invoice from './Invoice.jsx';
@@ -9,9 +9,23 @@ import './index.css';  // make sure this imports the new styles
 import logo from "../public/og-image.png";
 
 function App() {
+
+
+const isPhone = () => {
+  // Basic screen size check (phones are usually < 768px wide)
+  const isSmallScreen = window.innerWidth <= 768;
+
+  // Optional: check user-agent for mobile (more accurate)
+  const isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  return isSmallScreen || isMobileUA;
+};
+
+const isPhoneDevice = isPhone(); // true on phone, false on PC
+
   return (
     <Router>
-      <div className="d-flex flex-column vh-100">
+      <div className="d-flex flex-column vh-100 bg-light">
         {/* Top Navbar */}
         <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
   <Container fluid>
@@ -78,10 +92,14 @@ function App() {
               </Nav>
             </div>
           </div>
+              
+               {isPhoneDevice && <BackButton />}
 
+ {/* زر الرجوع */}
           {/* Main Content */}
-          <main className="flex-grow-1 p-4 bg-light overflow-auto">
+          <main className="flex-grow-1 p-4 bg-light overflow-auto mt-5 mb-5">
             <Container fluid>
+
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/inventory" element={<Inventory />} />
@@ -139,6 +157,32 @@ function Home() {
   </Button>
 </div>
     </div>
+  );
+}
+
+function BackButton() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (location.pathname === "/") return null;
+
+  return (
+    <button
+      onClick={() => navigate("/")}
+      className="btn btn-dark shadow-sm position-absolute"
+      style={{
+        top: "120px",
+        right: "30px",
+        zIndex: 1050,
+        borderRadius: "50%",
+        width: "46px",
+        height: "46px",
+        fontSize: "20px",
+      }}
+      title="الرجوع للرئيسية"
+    >
+      →
+    </button>
   );
 }
 
