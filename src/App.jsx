@@ -33,7 +33,7 @@ function App() {
         >
           <Container fluid>
             <Navbar.Brand as={Link} to="/" className="fw-bold fs-6 d-flex align-items-center gap-2">
-              <img src={logo} alt="قهوي للأعمال" height="70" className="d-inline-block align-top" />
+              <img src={logo} alt="قهوي للأعمال" height="40" className="d-inline-block align-top" />
               نظام إدارة المخزون والفواتير
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
