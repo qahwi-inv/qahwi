@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Alyamama-Light';
+  src: url('/src/assets/fonts/Alyamama-Light.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --primary: #0d6efd;       /* Bootstrap primary blue – trustworthy */
+  --primary-dark: #0b5ed7;
+  --success: #198754;
+  --gray-light: #f8f9fa;
+  --gray: #6c757d;
+  --dark: #212529;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+}
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'Alyamama-Light' !important;
+}
+
+body {
+font-family: 'Alyamama-Light'  !important;
+  background-color: var(--gray-light);
+  color: var(--dark);
+  margin: 0;
+  direction: rtl;
+  text-align: right;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.table {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #e9ecef;
+  font-weight: 600;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.modal-content {
+  border-radius: 0.75rem;
+}
+
