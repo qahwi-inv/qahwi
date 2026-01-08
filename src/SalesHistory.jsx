@@ -46,7 +46,7 @@ const exportToExcel = () => {
     inv.items.map(item => ({
       'رقم الفاتورة': inv.id,
       'التاريخ': new Date(inv.date).toLocaleString('ar-SA'),
-      'اسم التاجر': inv.merchantName || '',
+      'اسم المتجر': inv.merchantName || '',
       'الإجمالي الفاتورة': inv.total.toFixed(2),
       'ضريبة الفاتورة': inv.vat?.toFixed(2) || '0.00',
       'اسم المنتج': item.name,
@@ -158,7 +158,7 @@ const exportToExcel = () => {
               <tr>
                 <th>رقم الفاتورة</th>
                 <th>التاريخ</th>
-                <th>التاجر</th>
+                <th>المتجر</th>
                 <th>الإجمالي (ريال)</th>
                 <th>عدد الأصناف</th>
                 <th>إجراء</th>
