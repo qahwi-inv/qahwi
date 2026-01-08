@@ -111,46 +111,47 @@ const Inventory = () => {
           </div>
         )}
 
-        <div style={{ overflowX: 'auto' }}>
-  <Table striped bordered hover className="inventory-table mb-0">
-    <thead>
-      <tr>
-        <th>الاسم</th>
-        <th>الكمية</th>
-        <th>السعر (ريال)</th>
-        <th>إجراءات</th>
-      </tr>
-    </thead>
-    <tbody>
-      {items.map(item => (
-        <tr key={item.id}>
-          <td>{item.name}</td>
-          <td>{item.quantity}</td>
-          <td>{item.price.toFixed(2)}</td>
-          <td>
-            <div className="d-flex gap-2">
-              <Button
-                variant="warning"
-                size="sm"
-                onClick={() => openModal(item, true)}
-              >
-                تعديل
-              </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => handleDelete(item.id)}
-              >
-                حذف
-              </Button>
-            </div>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </Table>
-</div>
-
+        {items.length > 0 && (
+          <Table striped bordered hover responsive>
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th>الكمية</th>
+                <th>السعر (ريال)</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map(item => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.price.toFixed(2)}</td>
+                  <td>
+                    <div className="d-flex gap-2 flex-wrap">
+                        <Button
+                        variant="warning"
+                        size="sm"
+                        className="flex-grow-1"
+                        onClick={() => openModal(item, true)}
+                        >
+                        تعديل
+                        </Button>
+                        <Button
+                        variant="danger"
+                        size="sm"
+                        className="flex-grow-1"
+                        onClick={() => handleDelete(item.id)}
+                        >
+                        حذف
+                        </Button>
+                    </div>
+                    </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Card.Body>
 
       {/* Modal */}
