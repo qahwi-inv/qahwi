@@ -7,6 +7,7 @@ import SalesHistory from './SalesHistory.jsx';
 import Footer from './components/Footer.jsx';
 import './index.css';  // make sure this imports the new styles
 import logo from "../public/og-image.png";
+import { ArrowRight } from 'react-bootstrap-icons';
 
 function App() {
 
@@ -184,7 +185,7 @@ function BackButton() {
       }}
       title="الرجوع للرئيسية"
     >
-      <span>→</span>
+       <ArrowRight size={20} /> {/* perfectly centered */}
     </button>
   );
 }
