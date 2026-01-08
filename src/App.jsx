@@ -89,7 +89,7 @@ function App() {
 
 function Home() {
   return (
-    <div className="text-center py-5">
+    <div className="text-center py-3">
       <h1 className="mb-4">مرحباً بك في نظام إدارة المخزون</h1>
       <p className="lead text-muted">
        أولا قم <span style={{color:"red"}}>باضافة</span> مخزون جديد بالضغط على ادارة المخزون حتى تتمكن من انشاء فواتير
