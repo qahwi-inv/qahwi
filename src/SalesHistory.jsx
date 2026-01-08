@@ -130,7 +130,7 @@ const SalesHistory = () => {
           <Col md={6} lg={3}>
             <Card className="text-center border-warning h-100">
               <Card.Body>
-                <Card.Title className="text-warning fw-bold">متوسط الفاتورة</Card.Title>
+                <Card.Title className="text-warning fw-bold">متوسط المبيعات</Card.Title>
                 <h3>
                   {activeInvoices.length > 0
                     ? (activeInvoices.reduce((sum, inv) => sum + inv.total, 0) / activeInvoices.length).toFixed(2)
