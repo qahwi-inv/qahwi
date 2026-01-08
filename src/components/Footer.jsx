@@ -8,12 +8,12 @@ const Footer = () => {
     <footer className="bg-dark text-light py-4 mt-auto">
       <Container>
         <Row className="text-center text-md-end">
-          <Col md={6} className="mb-3 mb-md-0">
+          <Col md={4} className="mb-3 mb-md-0">
             <p className="mb-1 fw-bold">نظام إدارة المخزون والفواتير</p>
             <p className="mb-0 small">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
           </Col>
 
-          <Col md={6}>
+          <Col md={4}>
             <p className="mb-2 fw-bold">للتواصل والدعم:</p>
             <p className="mb-1">
               <FaPhoneAlt className="me-2" />
@@ -38,6 +38,9 @@ const Footer = () => {
                 واتساب: +966500588724
             </a>
             </p>
+          </Col>
+          <Col md={4} className="mb-3 mb-md-0">
+            <p className="mb-1 fw-bold">منصة قهوي لحلول الأعمال الصغيرة</p>
           </Col>
         </Row>
       </Container>
