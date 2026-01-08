@@ -184,7 +184,7 @@ function BackButton() {
       }}
       title="الرجوع للرئيسية"
     >
-      →
+      <span>→</span>
     </button>
   );
 }
