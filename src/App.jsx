@@ -177,7 +177,7 @@ function BackButton() {
         borderRadius: "50%",
         width: "46px",
         height: "46px",
-        fontSize: "20px",
+        fontSize: "23px",
       }}
       title="الرجوع للرئيسية"
     >
