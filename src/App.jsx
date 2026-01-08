@@ -177,7 +177,10 @@ function BackButton() {
         borderRadius: "50%",
         width: "46px",
         height: "46px",
-        fontSize: "23px",
+        fontSize: "25px",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
       title="الرجوع للرئيسية"
     >
