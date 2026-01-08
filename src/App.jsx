@@ -1,106 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import Inventory from './Inventory.jsx';
 import Invoice from './Invoice.jsx';
 import SalesHistory from './SalesHistory.jsx';
 import Footer from './components/Footer.jsx';
-import './index.css';  // make sure this imports the new styles
+import './index.css';  // make sure this imports your styles
 import logo from "../public/og-image.png";
 import { ArrowRight } from 'react-bootstrap-icons';
 
 function App() {
+  const [navExpanded, setNavExpanded] = useState(false);
 
+  const handleNavToggle = (expanded) => {
+    setNavExpanded(expanded);
+  };
 
-const isPhone = () => {
-  // Basic screen size check (phones are usually < 768px wide)
-  const isSmallScreen = window.innerWidth <= 768;
-
-  // Optional: check user-agent for mobile (more accurate)
-  const isMobileUA = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-  return isSmallScreen || isMobileUA;
-};
-
-const isPhoneDevice = isPhone(); // true on phone, false on PC
+  const isPhone = () => window.innerWidth <= 768;
+  const isPhoneDevice = isPhone();
 
   return (
     <Router>
       <div className="d-flex flex-column vh-100 bg-light">
         {/* Top Navbar */}
-        <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
-  <Container fluid>
-    <Navbar.Brand
-      as={Link}
-      to="/"
-      className="fw-bold fs-6 d-flex align-items-center gap-2"
-    >
-      <img
-        src={logo}
-        alt="قهوي للأعمال"
-        height="70"
-        className="d-inline-block align-top"
-      />
-      نظام إدارة المخزون والفواتير
-    </Navbar.Brand>
+        <Navbar
+          bg="dark"
+          variant="dark"
+          expand="lg"
+          className="py-3"
+          expanded={navExpanded}
+          onToggle={handleNavToggle}
+        >
+          <Container fluid>
+            <Navbar.Brand as={Link} to="/" className="fw-bold fs-6 d-flex align-items-center gap-2">
+              <img src={logo} alt="قهوي للأعمال" height="70" className="d-inline-block align-top" />
+              نظام إدارة المخزون والفواتير
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto">
+                <Nav.Link as={Link} to="/inventory">المخزون</Nav.Link>
+                <Nav.Link as={Link} to="/invoice">فواتير جديدة</Nav.Link>
+                <Nav.Link as={Link} to="/sales-history">سجل المبيعات</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="ms-auto">
-        <Nav.Link as={Link} to="/inventory">المخزون</Nav.Link>
-        <Nav.Link as={Link} to="/invoice">فواتير جديدة</Nav.Link>
-        <Nav.Link as={Link} to="/sales-history">سجل المبيعات</Nav.Link>
-      </Nav>
-    </Navbar.Collapse>
-  </Container>
-</Navbar>
-
-
-        <div className="d-flex flex-grow-1">
+        <div className="d-flex flex-grow-1 position-relative">
           {/* Sidebar */}
-          <div 
-            className="bg-white border-end shadow-sm d-none d-md-block" 
-            style={{ width: '260px', overflowY: 'auto' }}
-          >
+          <div className="bg-white border-end shadow-sm d-none d-md-block" style={{ width: '260px', overflowY: 'auto' }}>
             <div className="p-4">
               <h5 className="mb-4 fw-bold text-primary">القائمة الرئيسية</h5>
               <Nav className="flex-column gap-2">
-                <Button 
-                  as={Link} 
-                  to="/inventory"
-                  variant="outline-primary"
-                  className="text-end justify-content-start py-3 fs-5"
-                >
+                <Button as={Link} to="/inventory" variant="outline-primary" className="text-end justify-content-start py-3 fs-5">
                   إدارة المخزون
                 </Button>
-                <Button 
-                  as={Link} 
-                  to="/invoice"
-                  variant="outline-success"
-                  className="text-end justify-content-start py-3 fs-5"
-                >
+                <Button as={Link} to="/invoice" variant="outline-success" className="text-end justify-content-start py-3 fs-5">
                   إنشاء فاتورة جديدة
                 </Button>
-                <Button 
-                  as={Link} 
-                  to="/sales-history"
-                  variant="outline-info"
-                  className="text-end justify-content-start py-3 fs-5"
-                >
+                <Button as={Link} to="/sales-history" variant="outline-info" className="text-end justify-content-start py-3 fs-5">
                   سجل المبيعات
                 </Button>
               </Nav>
             </div>
           </div>
-              
-               {isPhoneDevice && <BackButton />}
 
- {/* زر الرجوع */}
+          {/* BackButton: only on phone */}
+          {isPhoneDevice && <BackButton navExpanded={navExpanded} />}
+
           {/* Main Content */}
           <main className="flex-grow-1 p-4 bg-light overflow-auto mt-5 mb-5">
             <Container fluid>
-
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/inventory" element={<Inventory />} />
@@ -124,44 +95,21 @@ function Home() {
         اختر من القائمة الموجودة أو من الأعلى لإدارة مخزونك أو إنشاء فواتير سريعة.
       </p>
       <div className="mt-5 d-flex flex-column align-items-center gap-4">
-  <Button
-    variant="primary"
-    size="lg"
-    as={Link}
-    to="/inventory"
-    className="w-75 w-md-50 fw-bold"
-    style={{ minWidth: '300px' }}
-  >
-    ادارة المخزون
-  </Button>
-
-  <Button
-    variant="success"
-    size="lg"
-    as={Link}
-    to="/invoice"
-    className="w-75 w-md-50 fw-bold"
-    style={{ minWidth: '300px' }}
-  >
-    فاتورة جديدة
-  </Button>
-
-  <Button
-    variant="warning"  // changed to info to distinguish from success
-    size="lg"
-    as={Link}
-    to="/sales-history"
-    className="w-75 w-md-50 fw-bold"
-    style={{ minWidth: '300px' }}
-  >
-    سجل المبيعات
-  </Button>
-</div>
+        <Button variant="primary" size="lg" as={Link} to="/inventory" className="w-75 w-md-50 fw-bold" style={{ minWidth: '300px' }}>
+          ادارة المخزون
+        </Button>
+        <Button variant="success" size="lg" as={Link} to="/invoice" className="w-75 w-md-50 fw-bold" style={{ minWidth: '300px' }}>
+          فاتورة جديدة
+        </Button>
+        <Button variant="warning" size="lg" as={Link} to="/sales-history" className="w-75 w-md-50 fw-bold" style={{ minWidth: '300px' }}>
+          سجل المبيعات
+        </Button>
+      </div>
     </div>
   );
 }
 
-function BackButton() {
+function BackButton({ navExpanded }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -172,20 +120,21 @@ function BackButton() {
       onClick={() => navigate("/")}
       className="btn btn-dark shadow-sm position-absolute"
       style={{
-        top: "120px",
+        top: navExpanded ? "18px" : "10px", // moves down when navbar expanded
         right: "30px",
         zIndex: 1050,
         borderRadius: "50%",
         width: "46px",
         height: "46px",
         fontSize: "25px",
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "top 0.3s", // smooth movement
       }}
       title="الرجوع للرئيسية"
     >
-       <ArrowRight size={20} /> {/* perfectly centered */}
+      <ArrowRight size={20} />
     </button>
   );
 }
