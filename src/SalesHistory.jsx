@@ -166,64 +166,80 @@ const SalesHistory = () => {
         {invoices.length === 0 ? (
           <p className="text-center text-muted py-5">لا توجد فواتير سابقة بعد</p>
         ) : (
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>رقم الفاتورة</th>
-                <th>التاريخ</th>
-                <th>المتجر</th>
-                <th>الإجمالي (ريال)</th>
-                <th>عدد الأصناف</th>
-                <th>إجراء</th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoices.map((inv) => (
-                <tr
-                  key={inv.id}
-                  style={{
-                    textDecoration: inv.isDeleted ? 'line-through' : 'none',
-                    color: inv.isDeleted ? '#6c757d' : 'inherit',
-                    backgroundColor: inv.isDeleted ? '#f8f9fa' : 'inherit'
-                  }}
-                >
-                  <td>{inv.id}</td>
-                  <td>{new Date(inv.date).toLocaleString('ar-SA')}</td>
-                  <td>{inv.merchantName}</td>
-                  <td>{inv.total.toFixed(2)}</td>
-                  <td>{inv.items.length}</td>
-                  <td>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      className="me-2"
-                      onClick={() => handleViewReceipt(inv)}
-                    >
-                      عرض الفاتورة
-                    </Button>
+         <div style={{ overflowX: 'auto' }}>
+  <Table
+    striped
+    bordered
+    hover
+    className="mb-0"
+    style={{
+      tableLayout: 'auto', // columns sized by content
+      width: 'auto',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    <thead>
+      <tr>
+        <th style={{ whiteSpace: 'nowrap' }}>رقم الفاتورة</th>
+        <th style={{ whiteSpace: 'nowrap' }}>التاريخ</th>
+        <th style={{ whiteSpace: 'nowrap' }}>المتجر</th>
+        <th style={{ whiteSpace: 'nowrap' }}>الإجمالي (ريال)</th>
+        <th style={{ whiteSpace: 'nowrap' }}>عدد الأصناف</th>
+        <th style={{ whiteSpace: 'nowrap' }}>إجراء</th>
+      </tr>
+    </thead>
+    <tbody>
+      {invoices.map((inv) => (
+        <tr
+          key={inv.id}
+          style={{
+            textDecoration: inv.isDeleted ? 'line-through' : 'none',
+            color: inv.isDeleted ? '#6c757d' : 'inherit',
+            backgroundColor: inv.isDeleted ? '#f8f9fa' : 'inherit',
+          }}
+        >
+          <td style={{ whiteSpace: 'nowrap' }}>{inv.id}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>
+            {new Date(inv.date).toLocaleString('ar-SA')}
+          </td>
+          <td style={{ whiteSpace: 'nowrap' }}>{inv.merchantName}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>{inv.total.toFixed(2)}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>{inv.items.length}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>
+            <div className="d-flex gap-2 flex-wrap">
+              <Button
+                variant="outline-primary"
+                size="sm"
+                onClick={() => handleViewReceipt(inv)}
+              >
+                عرض الفاتورة
+              </Button>
 
-                    {inv.isDeleted ? (
-                      <Button
-                        variant="outline-success"
-                        size="sm"
-                        onClick={() => toggleDelete(inv.id, false)}
-                      >
-                        استعادة
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        onClick={() => toggleDelete(inv.id, true)}
-                      >
-                        حذف
-                      </Button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+              {inv.isDeleted ? (
+                <Button
+                  variant="outline-success"
+                  size="sm"
+                  onClick={() => toggleDelete(inv.id, false)}
+                >
+                  استعادة
+                </Button>
+              ) : (
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => toggleDelete(inv.id, true)}
+                >
+                  حذف
+                </Button>
+              )}
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </Table>
+</div>
+
         )}
 
         {/* Receipt Preview */}

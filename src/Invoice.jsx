@@ -154,35 +154,38 @@ const Invoice = () => {
         </Form.Group>
 
         <h4 className="mb-3">اختر المنتجات</h4>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>المنتج</th>
-              <th>السعر</th>
-              <th>الكمية المتاحة</th>
-              <th>الكمية المطلوبة</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map(item => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.price.toFixed(2)}</td>
-                <td>{item.quantity}</td>
-                <td>
-                  <Form.Control
-                    type="number"
-                    min="0"
-                    max={item.quantity}
-                    value={selectedItems.find(s => s.id === item.id)?.qty || ''}
-                    onChange={e => handleSelect(item, e.target.value)}
-                    style={{ width: '100px' }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <div style={{ overflowX: 'auto' }}>
+  <Table striped bordered hover className="mb-0" style={{ tableLayout: 'auto', width: 'auto' }}>
+    <thead>
+      <tr>
+        <th>المنتج</th>
+        <th>السعر</th>
+        <th style={{ width: '1%', whiteSpace: 'nowrap' }}>الكمية المتاحة</th>
+        <th style={{ whiteSpace: 'nowrap' }}>الكمية المطلوبة</th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map(item => (
+        <tr key={item.id}>
+          <td style={{ whiteSpace: 'nowrap' }}>{item.name}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>{item.price.toFixed(2)}</td>
+          <td style={{ width: '1%', whiteSpace: 'nowrap' }}>{item.quantity}</td>
+          <td style={{ whiteSpace: 'nowrap' }}>
+            <Form.Control
+              type="number"
+              min="0"
+              max={item.quantity}
+              value={selectedItems.find(s => s.id === item.id)?.qty || ''}
+              onChange={e => handleSelect(item, e.target.value)}
+              style={{ width: '70px', minWidth: '60px' }}
+            />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </Table>
+</div>
+
 
         <div className="text-end mt-4">
           <h5>الإجمالي المبدئي: {subtotal.toFixed(2)} ريال</h5>

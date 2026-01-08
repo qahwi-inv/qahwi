@@ -88,3 +88,13 @@ h1, h2, h3 {
   border-radius: 0.75rem;
 }
 
+.inventory-table {
+  table-layout: auto; /* content determines column width */
+  width: auto; /* do not force full width */
+}
+.inventory-table th,
+.inventory-table td {
+  white-space: nowrap; /* prevent wrapping */
+  padding-left: 6px;
+  padding-right: 6px;
+}
