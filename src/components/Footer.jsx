@@ -17,8 +17,8 @@ const Footer = () => {
             <p className="mb-2 fw-bold">للتواصل والدعم:</p>
             <p className="mb-1">
               <FaPhoneAlt className="me-2" />
-              <a href="tel:+966500588724" className="text-light text-decoration-none">
-                +966500588724
+              <a href="tel:+966555982979" className="text-light text-decoration-none">
+                +966555982979
               </a>
             </p>
             <p className="mb-0">
@@ -30,12 +30,12 @@ const Footer = () => {
             <p className="mb-1">
             <FaWhatsapp className="me-2 text-success" />
             <a 
-                href="https://wa.me/966500588724" 
+                href="https://wa.me/966555982979" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-light text-decoration-none"
             >
-                واتساب: +966500588724
+                واتساب: +966555982979
             </a>
             </p>
           </Col>
