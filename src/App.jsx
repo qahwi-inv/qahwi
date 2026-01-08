@@ -92,7 +92,7 @@ function Home() {
     <div className="text-center py-5">
       <h1 className="mb-4">مرحباً بك في نظام إدارة المخزون</h1>
       <p className="lead text-muted">
-       أولا قم باضافة مخزون جديد بالضغط على ادارة المخزون حتى تتمكن من انشاء فواتير
+       أولا قم <span style={{color:"red"}}>باضافة</span> مخزون جديد بالضغط على ادارة المخزون حتى تتمكن من انشاء فواتير
       </p>
       <div className="mt-5 d-flex flex-column align-items-center gap-4">
         <Button variant="primary" size="lg" as={Link} to="/inventory" className="w-75 w-md-50 fw-bold" style={{ minWidth: '300px' }}>
