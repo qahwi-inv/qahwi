@@ -6,6 +6,7 @@ import Invoice from './Invoice.jsx';
 import SalesHistory from './SalesHistory.jsx';
 import Footer from './components/Footer.jsx';
 import './index.css';  // make sure this imports the new styles
+import logo from "../public/og-image.png";
 
 function App() {
   return (
@@ -13,20 +14,33 @@ function App() {
       <div className="d-flex flex-column vh-100">
         {/* Top Navbar */}
         <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
-          <Container fluid>
-            <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
-              نظام إدارة المخزون والفواتير
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="ms-auto">
-                <Nav.Link as={Link} to="/inventory">المخزون</Nav.Link>
-                <Nav.Link as={Link} to="/invoice">فواتير جديدة</Nav.Link>
-                <Nav.Link as={Link} to="/sales-history">سجل المبيعات</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+  <Container fluid>
+    <Navbar.Brand
+      as={Link}
+      to="/"
+      className="fw-bold fs-4 d-flex align-items-center gap-2"
+    >
+      <img
+        src={logo}
+        alt="قهوي للأعمال"
+        height="70"
+        className="d-inline-block align-top"
+      />
+      نظام إدارة المخزون والفواتير
+    </Navbar.Brand>
+
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="ms-auto">
+        <Nav.Link as={Link} to="/inventory">المخزون</Nav.Link>
+        <Nav.Link as={Link} to="/invoice">فواتير جديدة</Nav.Link>
+        <Nav.Link as={Link} to="/sales-history">سجل المبيعات</Nav.Link>
+      </Nav>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
+
 
         <div className="d-flex flex-grow-1">
           {/* Sidebar */}
