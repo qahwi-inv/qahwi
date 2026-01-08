@@ -18,7 +18,7 @@ function App() {
     <Navbar.Brand
       as={Link}
       to="/"
-      className="fw-bold fs-4 d-flex align-items-center gap-2"
+      className="fw-bold fs-6 d-flex align-items-center gap-2"
     >
       <img
         src={logo}
