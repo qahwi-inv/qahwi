@@ -40,7 +40,7 @@ const Footer = () => {
             </p>
           </Col>
           <Col md={4} className="mb-3 mb-md-0">
-            <p className="mb-1 fw-bold">منصة قهوي لحلول الأعمال الصغيرة</p>
+            <p className="mb-1 fw-bold">منصة قهوي لحلول الأعمال</p>
           </Col>
         </Row>
       </Container>
