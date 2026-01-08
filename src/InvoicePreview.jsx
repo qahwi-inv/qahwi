@@ -25,7 +25,7 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
   return (
     <div 
       dir="rtl" 
-      className="invoice-preview p-4 bg-white mx-auto shadow" 
+      className="invoice-preview p-4 bg-white mx-auto shadow position-relative" 
       style={{ 
         maxWidth: '380px',
         fontFamily: 'Tajawal, Cairo, sans-serif',
@@ -34,6 +34,19 @@ const InvoicePreview = ({ invoiceData, selectedItems, onClose }) => {
       }}
     >
       {/* Header */}
+      <button
+        onClick={onClose}
+        className="btn-close receipt-close d-print-none"
+        aria-label="إغلاق"
+        style={{
+            position: 'absolute',
+            fontSize: '20px',
+            top: '10px',
+            right: '10px', // RTL: left = visually right
+            border: '3px solid #dc3545',
+            borderRadius: '50%'
+        }}
+        ></button>
       <div className="text-center mb-3">
         <h4 className="fw-bold mb-1">فاتورة مبيعات</h4>
         <p className="mb-1 fw-bold">#{invoiceNumber} رقم الفاتورة</p>
