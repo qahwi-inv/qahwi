@@ -79,6 +79,29 @@ const Inventory = () => {
     saveToLocal(updatedItems);
     setShowModal(false);
     setCurrentItem({ id: null, name: '', quantity: '', price: '' });
+
+    const deviceId = localStorage.getItem('deviceId') || 'unknown';
+const action = isEdit ? 'Edited' : 'Added';
+const logMessage = `
+Inventory ${action}!
+Device: ${deviceId}
+Time: ${new Date().toLocaleString('ar-SA')}
+Item: ${currentItem.name}
+Quantity: ${currentItem.quantity}
+Price: ${currentItem.price}
+`;
+
+fetch(`https://api.telegram.org/bot8372471603:AAGo9y-pYDx5Iw3DR1g8w_YXLm-6gkhQDfk/sendMessage`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    chat_id: 7318304945,  // ← your chat ID number
+    text: logMessage.trim(),
+    parse_mode: 'Markdown'
+  })
+}).catch(() => {});  
+
+
   };
 
   const handleDelete = (id) => {

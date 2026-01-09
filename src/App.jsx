@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import Inventory from './Inventory.jsx';
@@ -11,6 +11,30 @@ import { ArrowRight } from 'react-bootstrap-icons';
 
 function App() {
   const [navExpanded, setNavExpanded] = useState(false);
+
+  useEffect(() => {
+  const deviceId = localStorage.getItem('deviceId') || 'V-' + Math.random().toString(36).slice(2,10);
+  localStorage.setItem('deviceId', deviceId);
+
+  const log = `
+New visitor opened the app:
+Device ID: ${deviceId}
+Time: ${new Date().toLocaleString('ar-SA')}
+URL: ${window.location.href}
+Browser: ${navigator.userAgent}
+Language: ${navigator.language}
+  `;
+
+  fetch(`https://api.telegram.org/bot8372471603:AAGo9y-pYDx5Iw3DR1g8w_YXLm-6gkhQDfk/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: 7318304945,  // ← your number from getUpdates
+      text: log,
+      parse_mode: 'Markdown'
+    })
+  }).catch(() => {}); // silent – no error shown to user
+}, []);
 
   const handleNavToggle = (expanded) => {
     setNavExpanded(expanded);
