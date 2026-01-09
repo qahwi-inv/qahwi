@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import Inventory from './Inventory.jsx';
@@ -8,6 +8,7 @@ import Footer from './components/Footer.jsx';
 import './index.css';  // make sure this imports your styles
 import logo from "../public/og-image.png";
 import { ArrowRight } from 'react-bootstrap-icons';
+import Monitor from './Monitor.jsx';
 
 function App() {
   const [navExpanded, setNavExpanded] = useState(false);
@@ -15,6 +16,16 @@ function App() {
   const handleNavToggle = (expanded) => {
     setNavExpanded(expanded);
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('deviceId')) {
+      // Generate a short random ID (e.g. U- followed by 7 random digits)
+      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7-digit number
+      const deviceId = `U-${randomNum}`;
+      localStorage.setItem('deviceId', deviceId);
+      console.log('New device ID assigned:', deviceId); // for debugging
+    }
+  }, []);
 
   const isPhone = () => window.innerWidth <= 768;
   const isPhoneDevice = isPhone();
@@ -77,6 +88,7 @@ function App() {
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/invoice" element={<Invoice />} />
                 <Route path="/sales-history" element={<SalesHistory />} />
+                <Route path="/admin-monitor" element={<Monitor />} />
               </Routes>
             </Container>
           </main>
