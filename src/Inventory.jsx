@@ -14,7 +14,6 @@ const Inventory = () => {
     quantity: '',
     price: ''
   });
-  
 
   // Load inventory
   const loadItems = () => {
@@ -47,8 +46,6 @@ const Inventory = () => {
   };
 
   const handleAddOrEdit = () => {
-    const deviceId = localStorage.getItem('deviceId') || 'U-unknown';
-
     if (!currentItem.name.trim()) {
       toast.error('يرجى إدخال اسم العنصر');
       return;
@@ -75,8 +72,7 @@ const Inventory = () => {
       );
       toast.success('تم تعديل العنصر بنجاح!');
     } else {
-      updatedItems = [...items, { ...itemToSave, id: Date.now(),createdBy: deviceId,   
-    createdAt: new Date().toISOString()  }];
+      updatedItems = [...items, { ...itemToSave, id: Date.now() }];
       toast.success('تم إضافة العنصر بنجاح!');
     }
 

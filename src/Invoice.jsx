@@ -15,7 +15,7 @@ const Invoice = () => {
     vat: 0,
   });
   const [showPreview, setShowPreview] = useState(false);
-  const deviceId = localStorage.getItem('deviceId') || 'U-unknown';
+  
 
   // Load inventory
   useEffect(() => {
@@ -86,8 +86,6 @@ const Invoice = () => {
         price: item.price,
         qty: item.qty
       })),
-      createdBy: deviceId,          // ← add this
-  createdAt: now.toISOString(),  // optional, for sorting/filtering later
       isDeleted: false
     };
 
