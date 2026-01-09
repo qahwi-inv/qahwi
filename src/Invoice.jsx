@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Table, Card } from 'react-bootstrap';
+import { Form, Button, Table, Card, Alert } from 'react-bootstrap';
 import InvoicePreview from './InvoicePreview.jsx';
 import toast from 'react-hot-toast';
-
+import { Link } from 'react-router-dom';
 const Invoice = () => {
   const [items, setItems] = useState([]);                    // available inventory
   const [selectedItems, setSelectedItems] = useState([]);    // current selection (resets after invoice)
@@ -153,6 +153,24 @@ const Invoice = () => {
           />
         </Form.Group>
 
+      {items.length === 0 ? (
+          // Empty inventory state
+          <Alert variant="warning" className="text-center py-4">
+            <Alert.Heading>لا يوجد عناصر في المخزون</Alert.Heading>
+            <p className="mb-4">
+              يجب إضافة عناصر إلى المخزون قبل إنشاء فاتورة.
+            </p>
+            <Button 
+              variant="primary" 
+              size="lg" 
+              as={Link} 
+              to="/inventory"
+            >
+              الانتقال إلى إدارة المخزون
+            </Button>
+          </Alert>
+        ) : (
+          <>
         <h4 className="mb-3">اختر المنتجات</h4>
         <Table striped bordered hover responsive>
           <thead>
@@ -196,6 +214,8 @@ const Invoice = () => {
             عرض وطباعة الفاتورة
           </Button>
         </div>
+        </>
+        )}
 
         {showPreview && (
           <div
